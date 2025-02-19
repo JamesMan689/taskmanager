@@ -2,12 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const {sequelize} = require('./config/database.js');
 const authRoutes = require('./routes/auth.routes.js');
+const taskRoutes = require('./routes/tasks.routes.js');
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/auth', authRoutes);
+app.use('/tasks', taskRoutes);
 
 const initializeDatabase = async () => {
   try{
