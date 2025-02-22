@@ -1,7 +1,7 @@
 # Task Management Application
 # Database Setup
 
-#### Log into PostgreSQL (using your username and port)
+#### Log into PostgreSQL (using your username and port in command prompt)
 psql -U your_postgres_username -p your_port
 
 #### Create the database
