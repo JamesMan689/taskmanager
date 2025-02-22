@@ -62,53 +62,96 @@ const TaskItem =({task, onTaskUpdated, onTaskDeleted}: TaskItemProps) => {
   };
 
   return (
-    <div className={`task-item ${isComplete ? 'completed' : ''}`}>
-      <div className="task-checkbox">
-        <input 
-          type="checkbox"
-          checked={isComplete}
-          onChange={handleCompleteToggle}
-        />
-      </div>
-
-      <div className="task-content">
-        {isEditing ? (
-          <div className="task-edit-form">
-            <input 
+    <div className={`card ${isComplete ? 'completed' : ''}`} style={{ 
+      borderLeft: isComplete ? '4px solid var(--success)' : '4px solid var(--primary)',
+      transition: 'all 0.3s ease',
+      opacity: isComplete ? 0.8 : 1
+    }}>
+      
+      {isEditing ? (
+        <div>
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input
               type="text"
+              id="title"
+              className="form-control"
               value={title}
               onChange={e => setTitle(e.target.value)}
-              placeholder="Title (required)"
               required
             />
-            <textarea 
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="description">Description (optional)</label>
+            <textarea
+              id="description"
+              className="form-control"
               value={description}
               onChange={e => setDescription(e.target.value)}
-              placeholder="Description (optional)"
               rows={3}
             />
-
-            <div>
-              <button onClick={handleSaveUpdate}>Save</button>
-              <button onClick={() => setIsEditing(false)}>Cancel</button>
-            </div>
           </div>
-        ):(
-          <>
-            <h3 className="task-title">{task.title}</h3>
-            {task.description && <p className="task-description">{task.description}</p>}
-            <div className="task-actions">
-              <button className="edit-button" onClick={() => setIsEditing(true)}>
+          
+          <div className="flex gap-2" style={{ justifyContent: 'flex-end' }}>
+            <button 
+              className="btn btn-secondary" 
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </button>
+            <button 
+              className="btn btn-primary" 
+              onClick={handleSaveUpdate}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={isComplete}
+                onChange={handleCompleteToggle}
+                style={{ width: '20px', height: '20px' }}
+              />
+              <h3 style={{ 
+                textDecoration: isComplete ? 'line-through' : 'none',
+                color: isComplete ? 'var(--text-light)' : 'var(--text-dark)'
+              }}>
+                {task.title}
+              </h3>
+            </div>
+            
+            <div className="flex gap-2">
+              <button 
+                className="btn btn-secondary"
+                onClick={() => setIsEditing(true)}
+              >
                 Edit
               </button>
-              <button className="delete-button" onClick={handleDelete}>
+              <button 
+                className="btn btn-danger"
+                onClick={handleDelete}
+              >
                 Delete
               </button>
             </div>
-          </>
-        )}
-      </div>
-
+          </div>
+          
+          {task.description && (
+            <p style={{ 
+              color: isComplete ? 'var(--text-light)' : 'var(--text-dark)',
+              textDecoration: isComplete ? 'line-through' : 'none'
+            }}>
+              {task.description}
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

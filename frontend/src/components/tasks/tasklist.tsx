@@ -55,26 +55,40 @@ const TaskList = ({updateAuthState}: {updateAuthState: () => void}) => {
   };
 
   return(
-    <div className="task-container">
-      <div className="task-header">
-        <h1>My Tasks</h1>
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
+    <div className="container">
+      <div className="flex justify-between items-center mb-4">
+        <h1 style={{ color: 'var(--primary)' }}>Task Manager</h1>
+        <button 
+          className="btn btn-danger" 
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
       </div>
 
-      <CreateTask onTaskCreated={handleCreateTask} />
-
-      <div className="task-list">
+      <div className="card mb-4">
+        <h2 className="mb-4" style={{ color: 'var(--primary)' }}>Create Task</h2>
+        <CreateTask onTaskCreated={handleCreateTask} />
+      </div>
+      
+      <div className="card">
+        <h2 style={{ color: 'var(--primary)', marginBottom: '20px' }}>My Tasks</h2>
+        
         {tasks.length === 0 ? (
-          <p className="no-tasks">Create your first task!</p>
-        ): (
-          tasks.map(task => (
-            <TaskItem 
-              key={task.id}
-              task={task}
-              onTaskUpdated={handleUpdateTask}
-              onTaskDeleted={handleDeleteTask}
-            />
-          ))
+          <div className="text-center" style={{ padding: '30px 0', color: 'var(--text-light)' }}>
+            <p>You don't have any tasks yet. Create your first task above!</p>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {tasks.map(task => (
+              <TaskItem 
+                key={task.id} 
+                task={task} 
+                onTaskUpdated={handleUpdateTask}
+                onTaskDeleted={handleDeleteTask}
+              />
+            ))}
+          </div>
         )}
       </div>
     </div>
