@@ -1,12 +1,11 @@
+// Register component
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-interface RegisterProps{
-  updateAuthState: () => void;
-}
 
-const Register = ({updateAuthState}: RegisterProps) => {
+const Register = ({updateAuthState}: {updateAuthState: () => void}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
