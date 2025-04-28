@@ -64,9 +64,6 @@ Mark tasks as complete/incomplete
 Delete tasks  
 Responsive design  
 
-# Salary Expectations
-$1500 per month
-
 # Demo  
 https://www.youtube.com/watch?v=DJi-6b1tyDM
 
